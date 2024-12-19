@@ -1,8 +1,5 @@
 <?php
 
-const INCREASING = 1;
-const DECREASING = -1;
-
 const VALID_INCR = 1;
 const VALID_DECR = -1;
 const INVALID = 0;
@@ -59,16 +56,16 @@ function isSafeDamped(array $a): bool {
 		return true;
 	}
 
-	$bad = 0;
 	for ($i = 0; $i < count($a); $i++) {
 		$t = $a;
-		array_splice($t, $i, 1);
-		if (! isSafe($t)) {
-			$bad += 1;
+		array_splice($t, $i, 1, []);
+
+		if (isSafe($t)) {
+			return true;
 		}
 	}
 
-	return $bad == 0;
+	return false;
 }
 
 function getSafeCount(array $ar, callable $heuristic): int {
